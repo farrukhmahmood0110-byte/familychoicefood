@@ -1,0 +1,1627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="page-title">Family Choice Food (FCF) | Fresh • Cheesy • Fire-Baked</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            gold: '#FFC107',
+                            goldHover: '#E6A100',
+                            darkBg: '#0D0D0D',
+                            cardBg: '#181818',
+                            border: '#2A2A2A',
+                            accent: '#282828'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                        handwritten: ['Lobster', 'cursive']
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* Custom Styling & Scrollbars */
+        body {
+            background-color: #0D0D0D;
+            color: #E5E7EB;
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+        }
+        
+        /* Custom Golden Glow & Shadows */
+        .gold-glow {
+            box-shadow: 0 0 15px rgba(255, 193, 7, 0.25);
+        }
+        .gold-glow-lg {
+            box-shadow: 0 0 25px rgba(255, 193, 7, 0.4);
+        }
+        
+        /* Smooth Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0d0d0d;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2a2a2a;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #FFC107;
+        }
+
+        /* Handwritten Category Heading Utility */
+        .font-handwritten {
+            font-family: 'Lobster', cursive;
+        }
+
+        /* Modal Overlay Effects */
+        .modal-backdrop {
+            background-color: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(5px);
+        }
+
+        /* Card Hover Zoom */
+        .product-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(255, 193, 7, 0.15);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-amber-500 selection:text-black">
+
+    <!-- Top Announcement Bar -->
+    <div class="bg-gradient-to-r from-amber-600 via-amber-500 to-amber-600 text-black py-1.5 px-4 text-center text-xs md:text-sm font-semibold flex justify-between items-center">
+        <div class="hidden sm:flex items-center space-x-2">
+            <i class="fa-solid font-bold fa-fire-flame-curved"></i>
+            <span>Fresh • Cheesy • Fire-Baked Fast Food Delivered Hot!</span>
+        </div>
+        <div class="mx-auto sm:mx-0 flex items-center space-x-4">
+            <a id="topbar-whatsapp-link" href="#" target="_blank" class="hover:underline flex items-center gap-1 font-bold">
+                <i class="fa-brands fa-whatsapp text-lg"></i> Order via WhatsApp: <span id="topbar-phone">0328-7969698</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Main Header / Navigation -->
+    <header class="sticky top-0 z-40 bg-brand-darkBg/95 backdrop-blur-md border-b border-brand-border shadow-xl">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Restaurant Brand / Logo -->
+            <a href="#home" class="flex items-center gap-3 group">
+                <div id="header-logo-container" class="w-12 h-12 rounded-full border-2 border-brand-gold overflow-hidden bg-brand-accent flex items-center justify-center text-brand-gold font-bold text-xl group-hover:scale-105 transition-transform">
+                    <img id="header-logo-img" src="" alt="FCF Logo" class="w-full h-full object-cover hidden">
+                    <span id="header-logo-fallback"><i class="fa-solid fa-pizza-slice"></i></span>
+                </div>
+                <div>
+                    <h1 id="header-restaurant-name" class="text-xl md:text-2xl font-extrabold text-brand-gold tracking-wide leading-none">Family Choice Food</h1>
+                    <p id="header-tagline" class="text-xs text-gray-400 mt-1">Fresh • Cheesy • Fire-Baked</p>
+                </div>
+            </a>
+
+            <!-- Desktop Nav Links -->
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-medium">
+                <a href="#home" class="hover:text-brand-gold transition-colors">Home</a>
+                <a href="#menu" class="hover:text-brand-gold transition-colors">Menu</a>
+                <a href="#about" class="hover:text-brand-gold transition-colors">About Us</a>
+                <a href="#contact" class="hover:text-brand-gold transition-colors">Contact</a>
+            </nav>
+
+            <!-- Action Buttons & Cart -->
+            <div class="flex items-center gap-4">
+                <!-- Cart Button -->
+                <button id="cart-btn" onclick="toggleCartModal()" class="relative p-2.5 rounded-full bg-brand-accent hover:bg-zinc-800 text-brand-gold transition-all border border-amber-500/30">
+                    <i class="fa-solid fa-cart-shopping text-xl"></i>
+                    <span id="cart-badge" class="absolute -top-1 -right-1 bg-amber-500 text-black text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">0</span>
+                </button>
+
+                <!-- Order WhatsApp Quick CTA -->
+                <a id="header-wa-btn" href="#" target="_blank" class="hidden sm:flex items-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-2 px-4 rounded-full text-sm transition-all shadow-lg hover:shadow-emerald-600/30">
+                    <i class="fa-brands fa-whatsapp text-lg"></i>
+                    <span>Order Now</span>
+                </a>
+
+                <!-- Mobile Menu Button -->
+                <button onclick="toggleMobileNav()" class="md:hidden text-gray-300 hover:text-brand-gold text-2xl focus:outline-none">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Drawer Navigation -->
+        <div id="mobile-nav" class="hidden md:hidden bg-brand-darkBg border-b border-brand-border px-4 pt-2 pb-4 space-y-3">
+            <a href="#home" onclick="toggleMobileNav()" class="block py-2 text-gray-300 hover:text-brand-gold font-medium">Home</a>
+            <a href="#menu" onclick="toggleMobileNav()" class="block py-2 text-gray-300 hover:text-brand-gold font-medium">Menu</a>
+            <a href="#about" onclick="toggleMobileNav()" class="block py-2 text-gray-300 hover:text-brand-gold font-medium">About Us</a>
+            <a href="#contact" onclick="toggleMobileNav()" class="block py-2 text-gray-300 hover:text-brand-gold font-medium">Contact</a>
+            <button onclick="openAdminModal(); toggleMobileNav();" class="block w-full text-left py-2 text-xs text-amber-500/80 hover:text-amber-400">Admin Login</button>
+        </div>
+    </header>
+
+    <!-- Main Content Body -->
+    <main class="flex-grow">
+        
+        <!-- HERO SECTION -->
+        <section id="home" class="relative bg-gradient-to-b from-zinc-900 to-brand-darkBg py-16 md:py-24 border-b border-zinc-800">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div class="space-y-6 text-center md:text-left">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-brand-gold text-xs font-semibold tracking-wider uppercase">
+                        <i class="fa-solid fa-crown text-amber-400"></i> Premium Quality Fast Food
+                    </div>
+                    <h1 id="hero-title" class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-tight">
+                        Welcome to <span class="text-brand-gold">Family Choice Food</span>
+                    </h1>
+                    <p id="hero-tagline" class="text-xl md:text-2xl font-handwritten text-amber-400 tracking-wide">
+                        Fresh • Cheesy • Fire-Baked
+                    </p>
+                    <p id="hero-desc" class="text-gray-300 text-base md:text-lg max-w-xl mx-auto md:mx-0">
+                        Delicious pizza, juicy burgers, crispy fries and fresh shawarma, made for every craving. Taste the difference in every bite!
+                    </p>
+                    <div class="flex flex-col sm:flex-row items-center justify-center md:justify-start gap-4 pt-4">
+                        <a href="#menu" class="w-full sm:w-auto bg-brand-gold hover:bg-amber-500 text-black font-bold px-8 py-3.5 rounded-full text-center transition-all shadow-lg gold-glow">
+                            <i class="fa-solid fa-utensils mr-2"></i> Explore Menu
+                        </a>
+                        <button onclick="openCheckoutModal()" class="w-full sm:w-auto bg-zinc-800 hover:bg-zinc-700 text-white font-semibold px-8 py-3.5 rounded-full border border-zinc-700 transition-all text-center">
+                            <i class="fa-solid fa-bag-shopping mr-2 text-brand-gold"></i> Quick Order
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Hero Image Showcase -->
+                <div class="relative flex justify-center">
+                    <div class="relative w-full max-w-md aspect-square rounded-3xl overflow-hidden border-2 border-amber-500/30 shadow-2xl gold-glow-lg bg-zinc-900 flex items-center justify-center">
+                        <img id="hero-image" src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=800&q=80" alt="Delicious Food Reference" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                        <div class="absolute bottom-6 left-6 right-6 p-4 rounded-xl bg-black/60 backdrop-blur-md border border-white/10 text-white">
+                            <p class="font-bold text-brand-gold text-lg">FCF Special Pizza</p>
+                            <p class="text-xs text-gray-300">Loaded with extra cheese, chicken tikka & special house sauces.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MENU SECTION -->
+        <section id="menu" class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Section Header -->
+            <div class="text-center space-y-3 mb-10">
+                <h2 class="text-3xl md:text-4xl font-extrabold text-brand-gold tracking-tight">Our Delicious Menu</h2>
+                <p class="text-gray-400 text-sm md:text-base max-w-2xl mx-auto">Select your favorite fast-food categories and customize your size preferences.</p>
+            </div>
+
+            <!-- Menu Category Controls & Search -->
+            <div class="flex flex-col md:flex-row items-center justify-between gap-4 mb-8">
+                <!-- Category Tabs -->
+                <div id="category-tabs" class="flex items-center gap-2 overflow-x-auto w-full md:w-auto pb-2 md:pb-0 scrollbar-none">
+                    <!-- Dynamic Category Buttons Rendered Here -->
+                </div>
+
+                <!-- Search Input -->
+                <div class="relative w-full md:w-72">
+                    <input type="text" id="menu-search" oninput="filterMenu()" placeholder="Search menu..." class="w-full bg-brand-cardBg border border-zinc-800 rounded-full py-2.5 pl-10 pr-4 text-sm text-white focus:outline-none focus:border-brand-gold">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3.5 text-gray-500 text-sm"></i>
+                </div>
+            </div>
+
+            <!-- Menu Products Grid -->
+            <div id="menu-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                <!-- Dynamic Product Cards Injected Here -->
+            </div>
+        </section>
+
+        <!-- ABOUT US SECTION -->
+        <section id="about" class="py-16 bg-zinc-900/60 border-y border-zinc-800">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                    <div class="space-y-6">
+                        <span class="text-brand-gold text-sm font-semibold uppercase tracking-widest">About Our Restaurant</span>
+                        <h2 class="text-3xl md:text-4xl font-extrabold text-white">Crafted With Passion & Authentic Flavors</h2>
+                        <p class="text-gray-300 leading-relaxed">
+                            At <strong class="text-brand-gold">Family Choice Food (FCF)</strong>, we believe every meal should be a memorable experience. From our stone-baked cheesy pizzas to our sizzling zinger burgers, juicy shawarmas, and crispy loaded fries — each dish is prepared fresh using high-quality ingredients and secret house spices.
+                        </p>
+                        
+                        <!-- Features Grid -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+                            <div class="p-4 rounded-xl bg-zinc-800/60 border border-zinc-700/50">
+                                <i class="fa-solid fa-fire text-amber-500 text-2xl mb-2"></i>
+                                <h4 class="font-bold text-white text-base">Fire-Baked Perfection</h4>
+                                <p class="text-xs text-gray-400 mt-1">Authentic high-temp ovens for crusty pizza dough.</p>
+                            </div>
+                            <div class="p-4 rounded-xl bg-zinc-800/60 border border-zinc-700/50">
+                                <i class="fa-solid fa-leaf text-emerald-500 text-2xl mb-2"></i>
+                                <h4 class="font-bold text-white text-base">100% Fresh Ingredients</h4>
+                                <p class="text-xs text-gray-400 mt-1">Fresh meats, crisp veg, and signature sauces.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Visual Poster Mock / Showcase -->
+                    <div class="relative rounded-2xl overflow-hidden border border-zinc-700 bg-zinc-800 p-6 shadow-2xl">
+                        <div class="text-center space-y-4">
+                            <div class="w-20 h-20 mx-auto rounded-full bg-amber-500/10 border border-amber-500 flex items-center justify-center text-brand-gold text-3xl">
+                                <i class="fa-solid fa-utensils"></i>
+                            </div>
+                            <h3 class="text-2xl font-extrabold text-brand-gold">FCF Special Quality Guarantee</h3>
+                            <p class="text-sm text-gray-300">
+                                Designed to cater to families, parties, and fast-food lovers across town. Order online for swift home delivery or direct pickup!
+                            </p>
+                            <div class="pt-2 border-t border-zinc-700 flex justify-around text-center">
+                                <div>
+                                    <p class="text-xl font-bold text-white">100%</p>
+                                    <p class="text-xs text-gray-400">Halal Certified</p>
+                                </div>
+                                <div>
+                                    <p class="text-xl font-bold text-white">Fast</p>
+                                    <p class="text-xs text-gray-400">WhatsApp Delivery</p>
+                                </div>
+                                <div>
+                                    <p class="text-xl font-bold text-white">Hot & Fresh</p>
+                                    <p class="text-xs text-gray-400">Guaranteed</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SOCIAL MEDIA LINKS SECTION -->
+        <section id="social" class="py-12 bg-black border-b border-zinc-800">
+            <div class="max-w-7xl mx-auto px-4 text-center">
+                <h3 class="text-xl font-bold text-brand-gold mb-2">Follow Family Choice Food</h3>
+                <p class="text-xs text-gray-400 mb-6">Connect with us on our official social channels for deals & updates</p>
+                
+                <div id="social-media-container" class="flex flex-wrap items-center justify-center gap-4">
+                    <!-- Dynamic Enabled Social Links Rendered Here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTACT SECTION -->
+        <section id="contact" class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-extrabold text-brand-gold">Get In Touch</h2>
+                <p class="text-gray-400 text-sm mt-2">Have a special order or inquiry? Reach out to us directly.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Phone / WhatsApp Box -->
+                <div class="p-6 rounded-2xl bg-zinc-900 border border-zinc-800 text-center space-y-3">
+                    <div class="w-12 h-12 mx-auto rounded-full bg-emerald-500/10 text-emerald-400 flex items-center justify-center text-xl">
+                        <i class="fa-brands fa-whatsapp"></i>
+                    </div>
+                    <h4 class="font-bold text-white">WhatsApp Direct</h4>
+                    <p id="contact-phone" class="text-amber-400 font-mono font-bold">0328-7969698</p>
+                    <p class="text-xs text-gray-400">Instant order assistance & menu inquiries.</p>
+                </div>
+
+                <!-- Hours Box -->
+                <div class="p-6 rounded-2xl bg-zinc-900 border border-zinc-800 text-center space-y-3">
+                    <div class="w-12 h-12 mx-auto rounded-full bg-amber-500/10 text-amber-400 flex items-center justify-center text-xl">
+                        <i class="fa-regular fa-clock"></i>
+                    </div>
+                    <h4 class="font-bold text-white">Opening Hours</h4>
+                    <p class="text-gray-300 text-sm font-medium">3:00 PM - 03:00 AM</p>
+                    <p class="text-xs text-gray-400">Open 7 days a week for lunch, dinner & late night.</p>
+                </div>
+
+                <!-- Delivery Option Box -->
+                <div class="p-6 rounded-2xl bg-zinc-900 border border-zinc-800 text-center space-y-3">
+                    <div class="w-12 h-12 mx-auto rounded-full bg-blue-500/10 text-blue-400 flex items-center justify-center text-xl">
+                        <i class="fa-solid fa-truck-fast"></i>
+                    </div>
+                    <h4 class="font-bold text-white">Delivery & Takeaway</h4>
+                    <p class="text-gray-300 text-sm">Fast Hot Delivery</p>
+                    <p class="text-xs text-gray-400">Order directly to your home or neighborhood.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FLOATING WHATSAPP BUTTON -->
+    <a id="floating-whatsapp-btn" href="#" target="_blank" class="fixed bottom-6 right-6 z-40 bg-emerald-500 hover:bg-emerald-400 text-white p-4 rounded-full shadow-2xl flex items-center justify-center text-2xl transition-transform hover:scale-110 gold-glow">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <!-- CUSTOMER SHOPPING CART MODAL / DRAWER -->
+    <div id="cart-modal" class="fixed inset-0 z-50 modal-backdrop hidden flex justify-end">
+        <div class="w-full max-w-md bg-brand-darkBg border-l border-zinc-800 h-full flex flex-col justify-between p-6 shadow-2xl relative animate-slide-left">
+            <!-- Modal Header -->
+            <div>
+                <div class="flex items-center justify-between pb-4 border-b border-zinc-800">
+                    <h3 class="text-xl font-bold text-brand-gold flex items-center gap-2">
+                        <i class="fa-solid fa-basket-shopping"></i> Your Shopping Cart
+                    </h3>
+                    <button onclick="toggleCartModal()" class="text-gray-400 hover:text-white text-xl">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+
+                <!-- Cart Items Container -->
+                <div id="cart-items-list" class="my-4 space-y-3 max-h-[55vh] overflow-y-auto pr-1">
+                    <!-- Dynamic Cart Items Rendered Here -->
+                </div>
+            </div>
+
+            <!-- Cart Footer Summary & Checkout -->
+            <div class="border-t border-zinc-800 pt-4 space-y-3">
+                <div class="space-y-1.5 text-sm">
+                    <div class="flex justify-between text-gray-400">
+                        <span>Subtotal</span>
+                        <span id="cart-subtotal" class="text-white font-medium">Rs. 0</span>
+                    </div>
+                    <div class="flex justify-between text-gray-400">
+                        <span>Delivery Fee</span>
+                        <span id="cart-delivery-fee" class="text-white font-medium">Rs. 0</span>
+                    </div>
+                    <div class="flex justify-between text-lg font-bold text-brand-gold pt-2 border-t border-zinc-800">
+                        <span>Grand Total</span>
+                        <span id="cart-grand-total">Rs. 0</span>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-3 pt-2">
+                    <button onclick="toggleCartModal()" class="py-3 bg-zinc-800 hover:bg-zinc-700 text-gray-300 font-semibold rounded-xl text-sm">
+                        Continue Shopping
+                    </button>
+                    <button onclick="openCheckoutModal()" class="py-3 bg-brand-gold hover:bg-amber-500 text-black font-bold rounded-xl text-sm gold-glow">
+                        Proceed Checkout
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CUSTOMER CHECKOUT MODAL -->
+    <div id="checkout-modal" class="fixed inset-0 z-50 modal-backdrop hidden flex items-center justify-center p-4">
+        <div class="w-full max-w-lg bg-zinc-900 border border-zinc-800 rounded-2xl p-6 shadow-2xl max-h-[90vh] overflow-y-auto">
+            <div class="flex items-center justify-between pb-3 border-b border-zinc-800">
+                <h3 class="text-xl font-bold text-brand-gold flex items-center gap-2">
+                    <i class="fa-solid fa-clipboard-check"></i> Complete Your Order
+                </h3>
+                <button onclick="closeCheckoutModal()" class="text-gray-400 hover:text-white">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+
+            <form id="checkout-form" onsubmit="handleCheckoutSubmit(event)" class="space-y-4 mt-4 text-sm">
+                <div>
+                    <label class="block text-gray-300 mb-1 font-medium">Full Name <span class="text-red-500">*</span></label>
+                    <input type="text" id="cust-name" required placeholder="e.g. Ali Ahmed" class="w-full bg-zinc-800 border border-zinc-700 rounded-lg p-2.5 text-white focus:outline-none focus:border-brand-gold">
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-gray-300 mb-1 font-medium">Mobile Number <span class="text-red-500">*</span></label>
+                        <input type="tel" id="cust-phone" required placeholder="03XXXXXXXXX" class="w-full bg-zinc-800 border border-zinc-700 rounded-lg p-2.5 text-white focus:outline-none focus:border-brand-gold">
+                    </div>
+                    <div>
+                        <label class="block text-gray-300 mb-1 font-medium">Order Type</label>
+                        <select id="cust-ordertype" onchange="toggleAddressRequirement()" class="w-full bg-zinc-800 border border-zinc-700 rounded-lg p-2.5 text-white focus:outline-none focus:border-brand-gold">
+                            <option value="Delivery">Home Delivery</option>
+                            <option value="Pickup">Self Pickup</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div id="address-block">
+                    <label class="block text-gray-300 mb-1 font-medium">Complete Delivery Address <span class="text-red-500">*</span></label>
+                    <textarea id="cust-address" rows="2" placeholder="House #, Street, Area / Neighborhood" class="w-full bg-zinc-800 border border-zinc-700 rounded-lg p-2.5 text-white focus:outline-none focus:border-brand-gold"></textarea>
+                </div>
+
+                <div>
+                    <label class="block text-gray-300 mb-1 font-medium">Special Delivery Instructions (Optional)</label>
+                    <input type="text" id="cust-instructions" placeholder="e.g. Less spicy, ring door bell" class="w-full bg-zinc-800 border border-zinc-700 rounded-lg p-2.5 text-white focus:outline-none focus:border-brand-gold">
+                </div>
+
+                <div>
+                    <label class="block text-gray-300 mb-1 font-medium">Payment Method</label>
+                    <select id="cust-payment" class="w-full bg-zinc-800 border border-zinc-700 rounded-lg p-2.5 text-white focus:outline-none focus:border-brand-gold">
+                        <option value="Cash on Delivery">Cash on Delivery (COD)</option>
+                        <option value="Pay at Pickup">Pay at Restaurant Pickup</option>
+                    </select>
+                </div>
+
+                <!-- Order Summary Breakdown -->
+                <div class="bg-black/50 p-3 rounded-xl border border-zinc-800 space-y-1 text-xs">
+                    <p class="font-bold text-brand-gold mb-1 text-sm">Order Summary</p>
+                    <div id="checkout-summary-items" class="space-y-1 text-gray-300">
+                        <!-- Dynamic Checkout Items -->
+                    </div>
+                    <div class="pt-2 mt-2 border-t border-zinc-800 font-bold flex justify-between text-sm text-white">
+                        <span>Total Payable</span>
+                        <span id="checkout-total-amount" class="text-brand-gold">Rs. 0</span>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="w-full py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl shadow-lg flex items-center justify-center gap-2 text-base">
+                    <i class="fa-brands fa-whatsapp text-xl"></i> Confirm Order on WhatsApp
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- SIZE SELECTION POPUP MODAL -->
+    <div id="size-modal" class="fixed inset-0 z-50 modal-backdrop hidden flex items-center justify-center p-4">
+        <div class="w-full max-w-sm bg-zinc-900 border border-zinc-800 rounded-2xl p-5 shadow-2xl space-y-4">
+            <div class="flex justify-between items-center border-b border-zinc-800 pb-2">
+                <h3 id="size-item-title" class="font-bold text-brand-gold text-lg">Select Size</h3>
+                <button onclick="closeSizeModal()" class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <p id="size-item-desc" class="text-xs text-gray-400">Choose your preferred portion size before adding to cart.</p>
+            
+            <div id="size-options-container" class="space-y-2">
+                <!-- Size Options Rendered Here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- ADMIN LOGIN MODAL -->
+    <div id="admin-login-modal" class="fixed inset-0 z-50 modal-backdrop hidden flex items-center justify-center p-4">
+        <div class="w-full max-w-md bg-zinc-900 border border-amber-500/30 rounded-2xl p-6 shadow-2xl relative">
+            <button onclick="closeAdminModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            
+            <div class="text-center space-y-2 mb-6">
+                <div class="w-14 h-14 mx-auto rounded-full bg-amber-500/10 border border-amber-500 flex items-center justify-center text-brand-gold text-2xl">
+                    <i class="fa-solid fa-user-shield"></i>
+                </div>
+                <h3 class="text-2xl font-extrabold text-white">Admin Dashboard Login</h3>
+                <p class="text-xs text-gray-400">Enter system credentials to manage FCF menu and settings.</p>
+            </div>
+
+            <!-- Security Alert Disclaimer -->
+            <div class="mb-4 p-3 bg-amber-500/10 border border-amber-500/20 rounded-xl text-xs text-amber-200/80 leading-relaxed">
+                <i class="fa-solid fa-triangle-exclamation text-amber-400 mr-1"></i>
+                <strong>Notice:</strong> This is a client-side local demonstration. Browser authentication stores settings in local browser cache. For production, connect a backend database.
+            </div>
+
+            <form onsubmit="handleAdminLogin(event)" class="space-y-4 text-sm">
+                <div>
+                    <label class="block text-gray-300 mb-1">Username</label>
+                    <input type="text" id="admin-user" required placeholder="admin" class="w-full bg-zinc-800 border border-zinc-700 rounded-lg p-2.5 text-white focus:outline-none focus:border-brand-gold">
+                </div>
+                <div>
+                    <label class="block text-gray-300 mb-1">Password</label>
+                    <input type="password" id="admin-pass" required placeholder="••••••••" class="w-full bg-zinc-800 border border-zinc-700 rounded-lg p-2.5 text-white focus:outline-none focus:border-brand-gold">
+                </div>
+                <p id="admin-login-err" class="text-xs text-red-400 hidden"><i class="fa-solid fa-circle-exclamation mr-1"></i> Invalid username or password!</p>
+                
+                <button type="submit" class="w-full py-3 bg-brand-gold hover:bg-amber-500 text-black font-bold rounded-xl transition-all shadow-lg">
+                    Log In to Dashboard
+                </button>
+            </form>
+            
+            <div class="mt-4 pt-3 border-t border-zinc-800 text-center text-xs text-gray-500">
+                Default Demo Credentials: <span class="text-gray-300 font-mono">admin / ChangeMe123!</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ADMIN DASHBOARD FULL SCREEN OVERLAY -->
+    <div id="admin-dashboard-overlay" class="fixed inset-0 z-50 bg-black hidden overflow-y-auto">
+        <!-- Admin Header -->
+        <header class="bg-zinc-900 border-b border-zinc-800 px-6 py-4 sticky top-0 z-10 flex flex-wrap items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+                <span class="p-2 rounded-lg bg-amber-500 text-black font-bold"><i class="fa-solid fa-sliders"></i></span>
+                <div>
+                    <h2 class="text-lg font-bold text-white">FCF Control Center</h2>
+                    <p class="text-xs text-gray-400">Admin Restaurant Management System</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-3">
+                <button onclick="closeAdminDashboard()" class="px-4 py-2 bg-zinc-800 hover:bg-zinc-700 text-gray-300 rounded-lg text-xs font-semibold">
+                    <i class="fa-solid fa-eye mr-1"></i> View Website
+                </button>
+                <button onclick="logoutAdmin()" class="px-4 py-2 bg-red-600/80 hover:bg-red-600 text-white rounded-lg text-xs font-semibold">
+                    <i class="fa-solid fa-right-from-bracket mr-1"></i> Logout
+                </button>
+            </div>
+        </header>
+
+        <!-- Admin Main Body with Sidebar & Content -->
+        <div class="max-w-7xl mx-auto p-4 md:p-6 grid grid-cols-1 lg:grid-cols-4 gap-6">
+            <!-- Navigation Sidebar -->
+            <aside class="space-y-2">
+                <button onclick="switchAdminTab('products')" id="tab-btn-products" class="w-full text-left p-3 rounded-xl bg-amber-500 text-black font-bold text-sm flex items-center gap-3">
+                    <i class="fa-solid fa-burger"></i> Manage Menu Products
+                </button>
+                <button onclick="switchAdminTab('orders')" id="tab-btn-orders" class="w-full text-left p-3 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-gray-300 font-medium text-sm flex items-center gap-3">
+                    <i class="fa-solid fa-receipt"></i> Orders Log
+                </button>
+                <button onclick="switchAdminTab('branding')" id="tab-btn-branding" class="w-full text-left p-3 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-gray-300 font-medium text-sm flex items-center gap-3">
+                    <i class="fa-solid fa-paintbrush"></i> Branding & Identity
+                </button>
+                <button onclick="switchAdminTab('social')" id="tab-btn-social" class="w-full text-left p-3 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-gray-300 font-medium text-sm flex items-center gap-3">
+                    <i class="fa-solid fa-share-nodes"></i> Social Media Links
+                </button>
+                <button onclick="switchAdminTab('settings')" id="tab-btn-settings" class="w-full text-left p-3 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-gray-300 font-medium text-sm flex items-center gap-3">
+                    <i class="fa-solid fa-gear"></i> System Settings
+                </button>
+            </aside>
+
+            <!-- Main Tab Container -->
+            <main class="lg:col-span-3 space-y-6">
+                
+                <!-- TAB 1: PRODUCT MANAGEMENT -->
+                <div id="admin-tab-products" class="admin-tab-content space-y-6">
+                    <!-- Top Action Header -->
+                    <div class="flex flex-col sm:flex-row items-center justify-between gap-4 bg-zinc-900 p-4 rounded-xl border border-zinc-800">
+                        <h3 class="text-xl font-bold text-brand-gold">Menu Products (<span id="admin-prod-count">0</span>)</h3>
+                        <button onclick="openAddProductModal()" class="w-full sm:w-auto bg-amber-500 hover:bg-amber-400 text-black font-bold px-4 py-2 rounded-lg text-sm flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-plus"></i> Add New Product
+                        </button>
+                    </div>
+
+                    <!-- Products Table -->
+                    <div class="bg-zinc-900 rounded-xl border border-zinc-800 overflow-x-auto">
+                        <table class="w-full text-left text-sm text-gray-300">
+                            <thead class="bg-zinc-800/60 text-xs text-amber-400 uppercase border-b border-zinc-700">
+                                <tr>
+                                    <th class="p-3">Item</th>
+                                    <th class="p-3">Category</th>
+                                    <th class="p-3">Price (PKR)</th>
+                                    <th class="p-3">Status</th>
+                                    <th class="p-3 text-right">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="admin-products-table-body" class="divide-y divide-zinc-800">
+                                <!-- Dynamic Rows Injected Here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- TAB 2: ORDERS HISTORY LOG -->
+                <div id="admin-tab-orders" class="admin-tab-content hidden space-y-6">
+                    <div class="bg-zinc-900 p-4 rounded-xl border border-zinc-800 flex justify-between items-center">
+                        <h3 class="text-xl font-bold text-brand-gold">Order Log History</h3>
+                        <button onclick="clearOrdersLog()" class="px-3 py-1.5 bg-red-900/40 border border-red-700/50 hover:bg-red-900/80 text-red-300 rounded-lg text-xs font-semibold">
+                            Clear Orders
+                        </button>
+                    </div>
+
+                    <div id="admin-orders-list" class="space-y-3">
+                        <!-- Dynamic Order Cards Rendered Here -->
+                    </div>
+                </div>
+
+                <!-- TAB 3: BRANDING & IDENTITY -->
+                <div id="admin-tab-branding" class="admin-tab-content hidden space-y-6">
+                    <div class="bg-zinc-900 p-6 rounded-xl border border-zinc-800 space-y-6">
+                        <h3 class="text-xl font-bold text-brand-gold border-b border-zinc-800 pb-3">Customize Identity & Branding</h3>
+                        
+                        <form onsubmit="saveBrandingSettings(event)" class="space-y-4">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-gray-300 text-xs mb-1 font-semibold">Restaurant Name</label>
+                                    <input type="text" id="brand-input-name" class="w-full bg-zinc-800 border border-zinc-700 rounded-lg p-2.5 text-white">
+                                </div>
+                                <div>
+                                    <label class="block text-gray-300 text-xs mb-1 font-semibold">Tagline</label>
+                                    <input type="text" id="brand-input-tagline" class="w-full bg-zinc-800 border border-zinc-700 rounded-lg p-2.5 text-white">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-gray-300 text-xs mb-1 font-semibold">Homepage Hero Heading</label>
+                                <input type="text" id="brand-input-hero-title" class="w-full bg-zinc-800 border border-zinc-700 rounded-lg p-2.5 text-white">
+                            </div>
+
+                            <div>
+                                <label class="block text-gray-300 text-xs mb-1 font-semibold">Hero Description</label>
+                                <textarea id="brand-input-hero-desc" rows="2" class="w-full bg-zinc-800 border border-zinc-700 rounded-lg p-2.5 text-white"></textarea>
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-gray-300 text-xs mb-1 font-semibold">WhatsApp Number (e.g. 03287969698)</label>
+                                    <input type="text" id="brand-input-phone" class="w-full bg-zinc-800 border border-zinc-700 rounded-lg p-2.5 text-white">
+                                </div>
+                                <div>
+                                    <label class="block text-gray-300 text-xs mb-1 font-semibold">Delivery Fee (PKR)</label>
+                                    <input type="number" id="brand-input-delivery" class="w-full bg-zinc-800 border border-zinc-700 rounded-lg p-2.5 text-white">
+                                </div>
+                            </div>
+
+                            <!-- Logo Upload Option -->
+                            <div>
+                                <label class="block text-gray-300 text-xs mb-1 font-semibold">Custom Logo Image (Optional)</label>
+                                <input type="file" id="brand-logo-file" accept="image/*" onchange="previewLogoUpload(event)" class="w-full bg-zinc-800 border border-zinc-700 rounded-lg p-2 text-xs text-gray-300">
+                                <p class="text-[10px] text-gray-400 mt-1">Select logo image file to apply across website header and footer.</p>
+                            </div>
+
+                            <div class="flex gap-3 pt-3">
+                                <button type="submit" class="bg-amber-500 hover:bg-amber-400 text-black font-bold px-6 py-2.5 rounded-lg text-sm">
+                                    Save Branding Changes
+                                </button>
+                                <button type="button" onclick="restoreDefaultBranding()" class="bg-zinc-800 hover:bg-zinc-700 text-gray-300 font-semibold px-4 py-2.5 rounded-lg text-sm">
+                                    Restore Defaults
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- TAB 4: SOCIAL MEDIA LINKS -->
+                <div id="admin-tab-social" class="admin-tab-content hidden space-y-6">
+                    <div class="bg-zinc-900 p-6 rounded-xl border border-zinc-800 space-y-6">
+                        <h3 class="text-xl font-bold text-brand-gold border-b border-zinc-800 pb-3">Social Media Handles</h3>
+                        
+                        <form onsubmit="saveSocialSettings(event)" class="space-y-4">
+                            <div>
+                                <label class="block text-gray-300 text-xs mb-1 font-semibold"><i class="fa-brands fa-instagram text-pink-500 mr-1"></i> Instagram Profile URL</label>
+                                <input type="url" id="social-input-instagram" placeholder="https://instagram.com/yourhandle" class="w-full bg-zinc-800 border border-zinc-700 rounded-lg p-2.5 text-white">
+                            </div>
+                            <div>
+                                <label class="block text-gray-300 text-xs mb-1 font-semibold"><i class="fa-brands fa-facebook text-blue-500 mr-1"></i> Facebook Page URL</label>
+                                <input type="url" id="social-input-facebook" placeholder="https://facebook.com/yourpage" class="w-full bg-zinc-800 border border-zinc-700 rounded-lg p-2.5 text-white">
+                            </div>
+                            <div>
+                                <label class="block text-gray-300 text-xs mb-1 font-semibold"><i class="fa-brands fa-tiktok text-white mr-1"></i> TikTok Profile URL</label>
+                                <input type="url" id="social-input-tiktok" placeholder="https://tiktok.com/@yourhandle" class="w-full bg-zinc-800 border border-zinc-700 rounded-lg p-2.5 text-white">
+                            </div>
+                            <div>
+                                <label class="block text-gray-300 text-xs mb-1 font-semibold"><i class="fa-brands fa-youtube text-red-500 mr-1"></i> YouTube Channel URL</label>
+                                <input type="url" id="social-input-youtube" placeholder="https://youtube.com/@yourchannel" class="w-full bg-zinc-800 border border-zinc-700 rounded-lg p-2.5 text-white">
+                            </div>
+
+                            <button type="submit" class="bg-amber-500 hover:bg-amber-400 text-black font-bold px-6 py-2.5 rounded-lg text-sm">
+                                Save Social Links
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- TAB 5: SYSTEM SETTINGS & PASSWORD CHANGE -->
+                <div id="admin-tab-settings" class="admin-tab-content hidden space-y-6">
+                    <div class="bg-zinc-900 p-6 rounded-xl border border-zinc-800 space-y-6">
+                        <h3 class="text-xl font-bold text-brand-gold border-b border-zinc-800 pb-3">Change Admin Credentials</h3>
+                        
+                        <form onsubmit="changeAdminPassword(event)" class="space-y-4 max-w-md">
+                            <div>
+                                <label class="block text-gray-300 text-xs mb-1 font-semibold">New Admin Password</label>
+                                <input type="password" id="new-admin-pass" required placeholder="Enter new password" class="w-full bg-zinc-800 border border-zinc-700 rounded-lg p-2.5 text-white">
+                            </div>
+                            <div>
+                                <label class="block text-gray-300 text-xs mb-1 font-semibold">Confirm Password</label>
+                                <input type="password" id="confirm-admin-pass" required placeholder="Confirm new password" class="w-full bg-zinc-800 border border-zinc-700 rounded-lg p-2.5 text-white">
+                            </div>
+
+                            <button type="submit" class="bg-amber-500 hover:bg-amber-400 text-black font-bold px-6 py-2.5 rounded-lg text-sm">
+                                Update Password
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+            </main>
+        </div>
+    </div>
+
+    <!-- PRODUCT EDITOR FORM MODAL (ADD / EDIT) -->
+    <div id="product-editor-modal" class="fixed inset-0 z-50 modal-backdrop hidden flex items-center justify-center p-4">
+        <div class="w-full max-w-lg bg-zinc-900 border border-zinc-800 rounded-2xl p-6 shadow-2xl max-h-[90vh] overflow-y-auto">
+            <div class="flex items-center justify-between pb-3 border-b border-zinc-800">
+                <h3 id="product-modal-title" class="text-xl font-bold text-brand-gold">Add Food Item</h3>
+                <button onclick="closeProductModal()" class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+
+            <form id="product-form" onsubmit="handleSaveProduct(event)" class="space-y-4 mt-4 text-sm">
+                <input type="hidden" id="prod-id">
+
+                <div>
+                    <label class="block text-gray-300 mb-1">Product Title <span class="text-red-500">*</span></label>
+                    <input type="text" id="prod-name" required placeholder="e.g. Fajita Pizza" class="w-full bg-zinc-800 border border-zinc-700 rounded-lg p-2.5 text-white">
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-gray-300 mb-1">Category</label>
+                        <select id="prod-category" class="w-full bg-zinc-800 border border-zinc-700 rounded-lg p-2.5 text-white">
+                            <option value="Pizza">Pizza</option>
+                            <option value="Burgers">Burgers</option>
+                            <option value="Shawarma">Shawarma</option>
+                            <option value="Fries">Fries</option>
+                            <option value="Sandwich">Sandwich</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-gray-300 mb-1">Price Type</label>
+                        <select id="prod-pricetype" onchange="togglePriceFields()" class="w-full bg-zinc-800 border border-zinc-700 rounded-lg p-2.5 text-white">
+                            <option value="single">Single Fixed Price</option>
+                            <option value="sized">Regular & Large Prices</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Price Inputs Container -->
+                <div id="price-single-block">
+                    <label class="block text-gray-300 mb-1">Price (PKR) <span class="text-red-500">*</span></label>
+                    <input type="number" id="prod-price-single" placeholder="e.g. 999" class="w-full bg-zinc-800 border border-zinc-700 rounded-lg p-2.5 text-white">
+                </div>
+
+                <div id="price-sized-block" class="hidden grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-gray-300 mb-1">Regular Price (PKR)</label>
+                        <input type="number" id="prod-price-regular" placeholder="149" class="w-full bg-zinc-800 border border-zinc-700 rounded-lg p-2.5 text-white">
+                    </div>
+                    <div>
+                        <label class="block text-gray-300 mb-1">Large Price (PKR)</label>
+                        <input type="number" id="prod-price-large" placeholder="249" class="w-full bg-zinc-800 border border-zinc-700 rounded-lg p-2.5 text-white">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-gray-300 mb-1">Description</label>
+                    <textarea id="prod-desc" rows="2" placeholder="Brief ingredients or dish summary..." class="w-full bg-zinc-800 border border-zinc-700 rounded-lg p-2.5 text-white"></textarea>
+                </div>
+
+                <div>
+                    <label class="block text-gray-300 mb-1">Image URL or Placeholder</label>
+                    <input type="text" id="prod-image-url" placeholder="https://images.unsplash.com/..." class="w-full bg-zinc-800 border border-zinc-700 rounded-lg p-2.5 text-white">
+                </div>
+
+                <div class="flex items-center gap-6 pt-2">
+                    <label class="flex items-center gap-2 text-gray-300 cursor-pointer">
+                        <input type="checkbox" id="prod-available" checked class="rounded border-zinc-700 text-amber-500 focus:ring-0">
+                        <span>Available for Order</span>
+                    </label>
+                </div>
+
+                <div class="flex gap-3 pt-4">
+                    <button type="submit" class="flex-1 py-2.5 bg-amber-500 hover:bg-amber-400 text-black font-bold rounded-xl">Save Product</button>
+                    <button type="button" onclick="closeProductModal()" class="py-2.5 px-4 bg-zinc-800 hover:bg-zinc-700 text-gray-300 font-semibold rounded-xl">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-black border-t border-zinc-800 py-12 text-sm text-gray-400">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+            <div class="space-y-3">
+                <div class="flex items-center gap-2">
+                    <span class="w-8 h-8 rounded-full bg-brand-gold text-black flex items-center justify-center font-bold text-sm"><i class="fa-solid fa-pizza-slice"></i></span>
+                    <h3 id="footer-restaurant-name" class="text-lg font-bold text-brand-gold">Family Choice Food</h3>
+                </div>
+                <p id="footer-tagline" class="text-xs text-gray-500">Fresh • Cheesy • Fire-Baked</p>
+                <p class="text-xs leading-relaxed text-gray-400">Serving hot pizzas, juicy burgers, crispy fries, and fresh shawarma right to your doorstep.</p>
+            </div>
+
+            <div>
+                <h4 class="text-white font-bold mb-3">Quick Links</h4>
+                <ul class="space-y-2 text-xs">
+                    <li><a href="#home" class="hover:text-brand-gold">Home</a></li>
+                    <li><a href="#menu" class="hover:text-brand-gold">Explore Menu</a></li>
+                    <li><a href="#about" class="hover:text-brand-gold">About Us</a></li>
+                    <li><a href="#contact" class="hover:text-brand-gold">Contact Us</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="text-white font-bold mb-3">Operating Hours</h4>
+                <p class="text-xs">Monday - Sunday</p>
+                <p class="text-xs text-amber-400 font-semibold mt-1">12:00 PM - 02:00 AM</p>
+                <p class="text-[11px] text-gray-500 mt-2">Delivery & Takeaway Available</p>
+            </div>
+
+            <div>
+                <h4 class="text-white font-bold mb-3">Administration</h4>
+                <button onclick="openAdminModal()" class="px-4 py-2 bg-zinc-900 border border-zinc-800 hover:border-amber-500/50 text-amber-400 rounded-lg text-xs font-semibold flex items-center gap-2 transition-all">
+                    <i class="fa-solid fa-lock"></i> Admin Portal Login
+                </button>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 border-t border-zinc-900 pt-6 text-center text-xs text-gray-500">
+            <p>&copy; <span id="current-year">2026</span> <span id="footer-copyright-name">Family Choice Food</span>. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT APPLICATION LOGIC -->
+    <script>
+        /* ==========================================================================
+           FCF - INITIAL PRELOADED MENU DATA & STATE MANAGEMENT
+           ========================================================================== */
+
+        // Initial menu items preloaded as specified in poster reference
+        const initialProducts = [
+            // Pizzas (Large prices reference from poster)
+            { id: '1', name: 'Fajita Pizza', category: 'Pizza', type: 'single', price: 999, desc: 'Cheesy mozzarella with spiced chicken fajita & sliced peppers.', image: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=600&q=80', available: true },
+            { id: '2', name: 'Tikka Pizza', category: 'Pizza', type: 'single', price: 999, desc: 'Smoky BBQ chicken tikka chunks with red onions & herbs.', image: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=600&q=80', available: true },
+            { id: '3', name: 'Supreme Pizza', category: 'Pizza', type: 'single', price: 999, desc: 'Loaded with chicken, olives, mushrooms, peppers & extra cheese.', image: 'https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=600&q=80', available: true },
+            { id: '4', name: 'FCF Special Pizza', category: 'Pizza', type: 'single', price: 1199, desc: 'Signature fire-baked masterpiece loaded with house special toppings.', image: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?auto=format&fit=crop&w=600&q=80', available: true },
+            { id: '5', name: 'Malai Boti Pizza', category: 'Pizza', type: 'single', price: 1199, desc: 'Creamy malai boti chicken topped with rich garlic cheese sauce.', image: 'https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?auto=format&fit=crop&w=600&q=80', available: true },
+
+            // Burgers
+            { id: '6', name: 'Zinger Burger', category: 'Burgers', type: 'single', price: 349, desc: 'Crispy fried chicken fillet with mayo & fresh lettuce.', image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=600&q=80', available: true },
+            { id: '7', name: 'Chicken Chapli Burger', category: 'Burgers', type: 'single', price: 299, desc: 'Traditional spiced chicken chapli patty grilled to perfection.', image: 'https://images.unsplash.com/photo-1586190848861-99aa4a171e90?auto=format&fit=crop&w=600&q=80', available: true },
+            { id: '8', name: 'Chicken Burger', category: 'Burgers', type: 'single', price: 279, desc: 'Classic chicken patty burger with signature FCF dressing.', image: 'https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=600&q=80', available: true },
+            { id: '9', name: 'Shami Burger', category: 'Burgers', type: 'single', price: 149, desc: 'Traditional spiced shami kabab with crisp egg overlay.', image: 'https://images.unsplash.com/photo-1572802419224-296b0aeee0d9?auto=format&fit=crop&w=600&q=80', available: true },
+
+            // Shawarma
+            { id: '10', name: 'Chicken Shawarma', category: 'Shawarma', type: 'single', price: 199, desc: 'Juicy roasted chicken wrapped in pita with garlic sauce.', image: 'https://images.unsplash.com/photo-1561651823-34feb02250e4?auto=format&fit=crop&w=600&q=80', available: true },
+            { id: '11', name: 'Zinger Shawarma', category: 'Shawarma', type: 'single', price: 349, desc: 'Crispy zinger strips folded in toasted pita bread.', image: 'https://images.unsplash.com/photo-1529006557810-274b9b2fc783?auto=format&fit=crop&w=600&q=80', available: true },
+
+            // Fries (With Regular & Large Sizes)
+            { id: '12', name: 'Plain Fries', category: 'Fries', type: 'sized', priceRegular: 149, priceLarge: 249, desc: 'Crispy golden potato fries lightly salted.', image: 'https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=600&q=80', available: true },
+            { id: '13', name: 'Masala Fries', category: 'Fries', type: 'sized', priceRegular: 199, priceLarge: 299, desc: 'Golden fries tossed in spicy peri peri masala seasoning.', image: 'https://images.unsplash.com/photo-1630384060421-cb20d0e0649d?auto=format&fit=crop&w=600&q=80', available: true },
+            { id: '14', name: 'Loaded Fries', category: 'Fries', type: 'sized', priceRegular: 349, priceLarge: 649, desc: 'Smothered in melted cheese sauce, chicken & jalapeños.', image: 'https://images.unsplash.com/photo-1585109649139-366815a0d713?auto=format&fit=crop&w=600&q=80', available: true },
+
+            // Sandwich
+            { id: '15', name: 'Club Sandwich', category: 'Sandwich', type: 'single', price: 399, desc: 'Triple layer sandwich with chicken, egg, cheese & fries.', image: 'https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=600&q=80', available: true }
+        ];
+
+        // Default Branding Config
+        const defaultBranding = {
+            name: "Family Choice Food",
+            tagline: "Fresh • Cheesy • Fire-Baked",
+            heroTitle: "Welcome to Family Choice Food",
+            heroDesc: "Delicious pizza, juicy burgers, crispy fries and fresh shawarma, made for every craving.",
+            phone: "03287969698",
+            deliveryFee: 0,
+            logoUrl: ""
+        };
+
+        // App Reactive Local State
+        let products = JSON.parse(localStorage.getItem('fcf_products')) || initialProducts;
+        let cart = JSON.parse(localStorage.getItem('fcf_cart')) || [];
+        let branding = JSON.parse(localStorage.getItem('fcf_branding')) || defaultBranding;
+        let socialLinks = JSON.parse(localStorage.getItem('fcf_social')) || {
+            instagram: "",
+            facebook: "",
+            tiktok: "",
+            youtube: ""
+        };
+        let ordersLog = JSON.parse(localStorage.getItem('fcf_orders')) || [];
+        let adminPassword = localStorage.getItem('fcf_admin_pass') || "ChangeMe123!";
+        
+        let currentCategoryFilter = 'All';
+        let pendingSelectedItem = null; // Item selected for sizing modal
+
+        /* ==========================================================================
+           INITIALIZATION & RENDERING
+           ========================================================================== */
+        window.addEventListener('DOMContentLoaded', () => {
+            applyBranding();
+            renderCategories();
+            renderMenu();
+            renderSocialLinks();
+            updateCartUI();
+            
+            // Set current year in footer
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+        });
+
+        // Apply Configured Branding across DOM
+        function applyBranding() {
+            document.getElementById('page-title').innerText = `${branding.name} | ${branding.tagline}`;
+            document.getElementById('header-restaurant-name').innerText = branding.name;
+            document.getElementById('header-tagline').innerText = branding.tagline;
+            document.getElementById('hero-title').innerHTML = `Welcome to <span class="text-brand-gold">${branding.name}</span>`;
+            document.getElementById('hero-tagline').innerText = branding.tagline;
+            document.getElementById('hero-desc').innerText = branding.heroDesc;
+            document.getElementById('footer-restaurant-name').innerText = branding.name;
+            document.getElementById('footer-tagline').innerText = branding.tagline;
+            document.getElementById('footer-copyright-name').innerText = branding.name;
+
+            // Formatted Phone
+            const formattedPhone = branding.phone.replace(/[^0-9]/g, '');
+            const waLink = `https://wa.me/92${formattedPhone.startsWith('0') ? formattedPhone.substring(1) : formattedPhone}`;
+            
+            document.getElementById('topbar-phone').innerText = branding.phone;
+            document.getElementById('contact-phone').innerText = branding.phone;
+            document.getElementById('topbar-whatsapp-link').href = waLink;
+            document.getElementById('header-wa-btn').href = waLink;
+            document.getElementById('floating-whatsapp-btn').href = waLink;
+
+            // Custom Logo handling
+            if (branding.logoUrl) {
+                document.getElementById('header-logo-img').src = branding.logoUrl;
+                document.getElementById('header-logo-img').classList.remove('hidden');
+                document.getElementById('header-logo-fallback').classList.add('hidden');
+            } else {
+                document.getElementById('header-logo-img').classList.add('hidden');
+                document.getElementById('header-logo-fallback').classList.remove('hidden');
+            }
+        }
+
+        // Render Menu Category Tabs
+        function renderCategories() {
+            const categories = ['All', ...new Set(products.map(p => p.category))];
+            const container = document.getElementById('category-tabs');
+            
+            container.innerHTML = categories.map(cat => `
+                <button onclick="setCategoryFilter('${cat}')" class="px-4 py-2 rounded-full text-xs font-bold transition-all whitespace-nowrap ${currentCategoryFilter === cat ? 'bg-amber-500 text-black shadow-md gold-glow' : 'bg-brand-cardBg text-gray-300 hover:bg-zinc-800 border border-zinc-800'}">
+                    ${cat}
+                </button>
+            `).join('');
+        }
+
+        function setCategoryFilter(cat) {
+            currentCategoryFilter = cat;
+            renderCategories();
+            renderMenu();
+        }
+
+        // Render Customer Menu Products
+        function renderMenu() {
+            const container = document.getElementById('menu-grid');
+            const search = document.getElementById('menu-search').value.toLowerCase();
+
+            const filtered = products.filter(p => {
+                const matchesCategory = currentCategoryFilter === 'All' || p.category === currentCategoryFilter;
+                const matchesSearch = p.name.toLowerCase().includes(search) || p.desc.toLowerCase().includes(search);
+                return matchesCategory && matchesSearch;
+            });
+
+            if (filtered.length === 0) {
+                container.innerHTML = `
+                    <div class="col-span-full py-12 text-center text-gray-500">
+                        <i class="fa-solid fa-utensils text-4xl mb-3 text-zinc-700"></i>
+                        <p>No food items found matching your filter.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = filtered.map(item => {
+                // Price Display Formatting
+                let priceTag = '';
+                if (item.type === 'sized') {
+                    priceTag = `<span class="text-white font-bold text-sm">Rs. ${item.priceRegular} - ${item.priceLarge}</span>`;
+                } else {
+                    priceTag = `<span class="text-white font-bold text-base">Rs. ${item.price}</span>`;
+                }
+
+                return `
+                    <div class="product-card bg-brand-cardBg border border-zinc-800/80 rounded-2xl overflow-hidden flex flex-col justify-between group">
+                        <div>
+                            <!-- Image Header -->
+                            <div class="relative h-48 overflow-hidden bg-zinc-900">
+                                <img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.src='https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=600&q=80'">
+                                <div class="absolute top-3 left-3 bg-black/70 backdrop-blur-md px-2.5 py-1 rounded-full text-[10px] font-bold text-amber-400 border border-amber-500/30 uppercase tracking-wider">
+                                    ${item.category}
+                                </div>
+                                ${!item.available ? `<div class="absolute inset-0 bg-black/80 flex items-center justify-center font-bold text-red-400 text-sm">Sold Out</div>` : ''}
+                            </div>
+
+                            <!-- Content -->
+                            <div class="p-4 space-y-2">
+                                <h3 class="font-bold text-white text-lg group-hover:text-brand-gold transition-colors">${item.name}</h3>
+                                <p class="text-gray-400 text-xs line-clamp-2 leading-relaxed">${item.desc}</p>
+                            </div>
+                        </div>
+
+                        <!-- Card Footer Price & CTA -->
+                        <div class="p-4 pt-0 flex items-center justify-between border-t border-zinc-800/50 mt-2">
+                            <div>
+                                <span class="text-[10px] text-gray-500 block uppercase font-semibold">Price</span>
+                                ${priceTag}
+                            </div>
+                            <button onclick="initAddToCart('${item.id}')" ${!item.available ? 'disabled' : ''} class="px-4 py-2 bg-amber-500 hover:bg-amber-400 disabled:bg-zinc-800 disabled:text-gray-600 text-black font-bold text-xs rounded-xl transition-all shadow flex items-center gap-1.5">
+                                <i class="fa-solid fa-plus"></i> Add
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function filterMenu() {
+            renderMenu();
+        }
+
+        /* ==========================================================================
+           CART & CHECKOUT SYSTEM
+           ========================================================================== */
+
+        function initAddToCart(productId) {
+            const item = products.find(p => p.id === productId);
+            if (!item || !item.available) return;
+
+            if (item.type === 'sized') {
+                // Open Sizing Modal
+                pendingSelectedItem = item;
+                document.getElementById('size-item-title').innerText = item.name;
+                document.getElementById('size-options-container').innerHTML = `
+                    <button onclick="confirmSizedAdd('Regular', ${item.priceRegular})" class="w-full p-3 bg-zinc-800 hover:bg-amber-500 hover:text-black rounded-xl text-left flex justify-between font-bold text-sm transition-all border border-zinc-700">
+                        <span>Regular Portion</span>
+                        <span>Rs. ${item.priceRegular}</span>
+                    </button>
+                    <button onclick="confirmSizedAdd('Large', ${item.priceLarge})" class="w-full p-3 bg-zinc-800 hover:bg-amber-500 hover:text-black rounded-xl text-left flex justify-between font-bold text-sm transition-all border border-zinc-700">
+                        <span>Large Portion</span>
+                        <span>Rs. ${item.priceLarge}</span>
+                    </button>
+                `;
+                document.getElementById('size-modal').classList.remove('hidden');
+            } else {
+                addToCart(item, 'Standard', item.price);
+            }
+        }
+
+        function confirmSizedAdd(sizeName, price) {
+            if (pendingSelectedItem) {
+                addToCart(pendingSelectedItem, sizeName, price);
+                closeSizeModal();
+            }
+        }
+
+        function closeSizeModal() {
+            document.getElementById('size-modal').classList.add('hidden');
+            pendingSelectedItem = null;
+        }
+
+        function addToCart(product, sizeLabel, unitPrice) {
+            const cartKey = `${product.id}_${sizeLabel}`;
+            const existingIndex = cart.findIndex(c => c.cartKey === cartKey);
+
+            if (existingIndex > -1) {
+                cart[existingIndex].qty += 1;
+            } else {
+                cart.push({
+                    cartKey: cartKey,
+                    id: product.id,
+                    name: product.name,
+                    size: sizeLabel,
+                    price: unitPrice,
+                    qty: 1
+                });
+            }
+
+            saveCart();
+            updateCartUI();
+            toggleCartModal(true); // Show Cart Drawer
+        }
+
+        function updateCartQty(cartKey, delta) {
+            const index = cart.findIndex(c => c.cartKey === cartKey);
+            if (index > -1) {
+                cart[index].qty += delta;
+                if (cart[index].qty <= 0) {
+                    cart.splice(index, 1);
+                }
+            }
+            saveCart();
+            updateCartUI();
+        }
+
+        function saveCart() {
+            localStorage.setItem('fcf_cart', JSON.stringify(cart));
+        }
+
+        function updateCartUI() {
+            const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+            const delivery = branding.deliveryFee || 0;
+            const grandTotal = subtotal + delivery;
+
+            // Badges
+            document.getElementById('cart-badge').innerText = totalItems;
+
+            // Drawer Items
+            const itemsContainer = document.getElementById('cart-items-list');
+            if (cart.length === 0) {
+                itemsContainer.innerHTML = `
+                    <div class="py-12 text-center text-gray-500 space-y-2">
+                        <i class="fa-solid fa-basket-shopping text-4xl text-zinc-700"></i>
+                        <p class="text-sm">Your shopping cart is empty.</p>
+                    </div>
+                `;
+            } else {
+                itemsContainer.innerHTML = cart.map(item => `
+                    <div class="bg-zinc-900 border border-zinc-800 p-3 rounded-xl flex items-center justify-between text-xs">
+                        <div class="space-y-1">
+                            <p class="font-bold text-white text-sm">${item.name}</p>
+                            <p class="text-amber-400 font-medium">${item.size !== 'Standard' ? item.size + ' • ' : ''}Rs. ${item.price}</p>
+                        </div>
+
+                        <!-- Quantity Controls -->
+                        <div class="flex items-center gap-2 bg-zinc-800 rounded-lg p-1">
+                            <button onclick="updateCartQty('${item.cartKey}', -1)" class="w-6 h-6 rounded bg-zinc-700 text-white font-bold hover:bg-amber-500 hover:text-black">-</button>
+                            <span class="font-bold text-white px-1">${item.qty}</span>
+                            <button onclick="updateCartQty('${item.cartKey}', 1)" class="w-6 h-6 rounded bg-zinc-700 text-white font-bold hover:bg-amber-500 hover:text-black">+</button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            // Totals
+            document.getElementById('cart-subtotal').innerText = `Rs. ${subtotal}`;
+            document.getElementById('cart-delivery-fee').innerText = `Rs. ${delivery}`;
+            document.getElementById('cart-grand-total').innerText = `Rs. ${grandTotal}`;
+        }
+
+        function toggleCartModal(forceOpen = false) {
+            const modal = document.getElementById('cart-modal');
+            if (forceOpen) {
+                modal.classList.remove('hidden');
+            } else {
+                modal.classList.toggle('hidden');
+            }
+        }
+
+        function openCheckoutModal() {
+            if (cart.length === 0) {
+                alert("Please add at least one food item to your cart before checking out!");
+                return;
+            }
+            toggleCartModal(false);
+
+            // Populate checkout summary
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+            const delivery = branding.deliveryFee || 0;
+            const grandTotal = subtotal + delivery;
+
+            document.getElementById('checkout-summary-items').innerHTML = cart.map(i => `
+                <div class="flex justify-between">
+                    <span>${i.qty}x ${i.name} (${i.size})</span>
+                    <span>Rs. ${i.price * i.qty}</span>
+                </div>
+            `).join('');
+
+            document.getElementById('checkout-total-amount').innerText = `Rs. ${grandTotal}`;
+            document.getElementById('checkout-modal').classList.remove('hidden');
+        }
+
+        function closeCheckoutModal() {
+            document.getElementById('checkout-modal').classList.add('hidden');
+        }
+
+        function toggleAddressRequirement() {
+            const type = document.getElementById('cust-ordertype').value;
+            const addressBlock = document.getElementById('address-block');
+            const addressInput = document.getElementById('cust-address');
+
+            if (type === 'Pickup') {
+                addressBlock.classList.add('opacity-40');
+                addressInput.required = false;
+            } else {
+                addressBlock.classList.remove('opacity-40');
+                addressInput.required = true;
+            }
+        }
+
+        // WhatsApp Checkout Submission Hand-off
+        function handleCheckoutSubmit(e) {
+            e.preventDefault();
+
+            const name = document.getElementById('cust-name').value.trim();
+            const phone = document.getElementById('cust-phone').value.trim();
+            const orderType = document.getElementById('cust-ordertype').value;
+            const address = document.getElementById('cust-address').value.trim();
+            const instructions = document.getElementById('cust-instructions').value.trim();
+            const payment = document.getElementById('cust-payment').value;
+
+            if (!name || !phone) {
+                alert("Please fill in required fields.");
+                return;
+            }
+
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+            const delivery = branding.deliveryFee || 0;
+            const grandTotal = subtotal + delivery;
+
+            // Generate Formatted Order Text
+            let msg = `*NEW ORDER - ${branding.name.toUpperCase()}*\n`;
+            msg += `-----------------------------------\n`;
+            msg += `*Customer:* ${name}\n`;
+            msg += `*Phone:* ${phone}\n`;
+            msg += `*Order Type:* ${orderType}\n`;
+            if (orderType === 'Delivery') {
+                msg += `*Address:* ${address}\n`;
+            }
+            if (instructions) {
+                msg += `*Instructions:* ${instructions}\n`;
+            }
+            msg += `*Payment:* ${payment}\n`;
+            msg += `-----------------------------------\n`;
+            msg += `*ORDER ITEMS:*\n`;
+
+            cart.forEach(item => {
+                msg += `• ${item.qty}x ${item.name} (${item.size}) @ Rs. ${item.price} = Rs. ${item.price * item.qty}\n`;
+            });
+
+            msg += `-----------------------------------\n`;
+            msg += `*Subtotal:* Rs. ${subtotal}\n`;
+            msg += `*Delivery Fee:* Rs. ${delivery}\n`;
+            msg += `*GRAND TOTAL:* Rs. ${grandTotal}\n`;
+            msg += `-----------------------------------\n`;
+            msg += `_Sent via Family Choice Food Web App_`;
+
+            // Save to local demonstration orders log
+            const newOrderRecord = {
+                id: 'FCF-' + Math.floor(1000 + Math.random() * 9000),
+                customer: name,
+                phone: phone,
+                items: cart,
+                total: grandTotal,
+                date: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+                status: 'Pending'
+            };
+            ordersLog.unshift(newOrderRecord);
+            localStorage.setItem('fcf_orders', JSON.stringify(ordersLog));
+
+            // Launch WhatsApp URL
+            const rawPhone = branding.phone.replace(/[^0-9]/g, '');
+            const targetPhone = rawPhone.startsWith('0') ? '92' + rawPhone.substring(1) : rawPhone;
+            const waUrl = `https://wa.me/${targetPhone}?text=${encodeURIComponent(msg)}`;
+
+            // Clear Cart & Close Modal
+            cart = [];
+            saveCart();
+            updateCartUI();
+            closeCheckoutModal();
+
+            // Redirect customer
+            window.open(waUrl, '_blank');
+        }
+
+        /* ==========================================================================
+           ADMINISTRATION DASHBOARD LOGIC
+           ========================================================================== */
+
+        function openAdminModal() {
+            document.getElementById('admin-login-modal').classList.remove('hidden');
+        }
+
+        function closeAdminModal() {
+            document.getElementById('admin-login-modal').classList.add('hidden');
+            document.getElementById('admin-login-err').classList.add('hidden');
+        }
+
+        function handleAdminLogin(e) {
+            e.preventDefault();
+            const u = document.getElementById('admin-user').value;
+            const p = document.getElementById('admin-pass').value;
+
+            if (u === 'admin' && p === adminPassword) {
+                closeAdminModal();
+                openAdminDashboard();
+            } else {
+                document.getElementById('admin-login-err').classList.remove('hidden');
+            }
+        }
+
+        function openAdminDashboard() {
+            document.getElementById('admin-dashboard-overlay').classList.remove('hidden');
+            renderAdminProductsTable();
+            renderAdminOrders();
+            populateBrandingForm();
+            populateSocialForm();
+        }
+
+        function closeAdminDashboard() {
+            document.getElementById('admin-dashboard-overlay').classList.add('hidden');
+        }
+
+        function logoutAdmin() {
+            closeAdminDashboard();
+        }
+
+        function switchAdminTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.admin-tab-content').forEach(el => el.classList.add('hidden'));
+            document.getElementById(`admin-tab-${tabName}`).classList.remove('hidden');
+
+            // Reset tab button styling
+            const tabs = ['products', 'orders', 'branding', 'social', 'settings'];
+            tabs.forEach(t => {
+                const btn = document.getElementById(`tab-btn-${t}`);
+                if (t === tabName) {
+                    btn.className = "w-full text-left p-3 rounded-xl bg-amber-500 text-black font-bold text-sm flex items-center gap-3";
+                } else {
+                    btn.className = "w-full text-left p-3 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-gray-300 font-medium text-sm flex items-center gap-3";
+                }
+            });
+        }
+
+        // Render Admin Products Table
+        function renderAdminProductsTable() {
+            const body = document.getElementById('admin-products-table-body');
+            document.getElementById('admin-prod-count').innerText = products.length;
+
+            body.innerHTML = products.map(item => `
+                <tr class="hover:bg-zinc-800/40 transition-colors">
+                    <td class="p-3 flex items-center gap-3">
+                        <img src="${item.image}" class="w-10 h-10 rounded-lg object-cover bg-zinc-800">
+                        <div>
+                            <p class="font-bold text-white">${item.name}</p>
+                            <p class="text-[10px] text-gray-400 truncate max-w-xs">${item.desc}</p>
+                        </div>
+                    </td>
+                    <td class="p-3 text-xs font-semibold">${item.category}</td>
+                    <td class="p-3 font-mono text-xs">
+                        ${item.type === 'sized' ? `Reg: ${item.priceRegular} / Lg: ${item.priceLarge}` : `Rs. ${item.price}`}
+                    </td>
+                    <td class="p-3">
+                        <button onclick="toggleProductAvailability('${item.id}')" class="px-2.5 py-1 rounded-full text-[10px] font-bold ${item.available ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' : 'bg-red-500/20 text-red-400 border border-red-500/30'}">
+                            ${item.available ? 'Available' : 'Sold Out'}
+                        </button>
+                    </td>
+                    <td class="p-3 text-right space-x-2">
+                        <button onclick="editProduct('${item.id}')" class="p-1.5 text-amber-400 hover:text-amber-300"><i class="fa-solid fa-pen-to-square"></i></button>
+                        <button onclick="deleteProduct('${item.id}')" class="p-1.5 text-red-400 hover:text-red-300"><i class="fa-solid fa-trash"></i></button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function toggleProductAvailability(id) {
+            const index = products.findIndex(p => p.id === id);
+            if (index > -1) {
+                products[index].available = !products[index].available;
+                saveProductsState();
+                renderAdminProductsTable();
+                renderMenu();
+            }
+        }
+
+        function deleteProduct(id) {
+            if (confirm("Are you sure you want to delete this menu item?")) {
+                products = products.filter(p => p.id !== id);
+                saveProductsState();
+                renderAdminProductsTable();
+                renderCategories();
+                renderMenu();
+            }
+        }
+
+        function openAddProductModal() {
+            document.getElementById('product-modal-title').innerText = "Add Food Item";
+            document.getElementById('product-form').reset();
+            document.getElementById('prod-id').value = "";
+            togglePriceFields();
+            document.getElementById('product-editor-modal').classList.remove('hidden');
+        }
+
+        function editProduct(id) {
+            const item = products.find(p => p.id === id);
+            if (!item) return;
+
+            document.getElementById('product-modal-title').innerText = "Edit Food Item";
+            document.getElementById('prod-id').value = item.id;
+            document.getElementById('prod-name').value = item.name;
+            document.getElementById('prod-category').value = item.category;
+            document.getElementById('prod-pricetype').value = item.type;
+            
+            if (item.type === 'sized') {
+                document.getElementById('prod-price-regular').value = item.priceRegular;
+                document.getElementById('prod-price-large').value = item.priceLarge;
+            } else {
+                document.getElementById('prod-price-single').value = item.price;
+            }
+
+            document.getElementById('prod-desc').value = item.desc;
+            document.getElementById('prod-image-url').value = item.image;
+            document.getElementById('prod-available').checked = item.available;
+
+            togglePriceFields();
+            document.getElementById('product-editor-modal').classList.remove('hidden');
+        }
+
+        function closeProductModal() {
+            document.getElementById('product-editor-modal').classList.add('hidden');
+        }
+
+        function togglePriceFields() {
+            const type = document.getElementById('prod-pricetype').value;
+            if (type === 'sized') {
+                document.getElementById('price-single-block').classList.add('hidden');
+                document.getElementById('price-sized-block').classList.remove('hidden');
+            } else {
+                document.getElementById('price-single-block').classList.remove('hidden');
+                document.getElementById('price-sized-block').classList.add('hidden');
+            }
+        }
+
+        function handleSaveProduct(e) {
+            e.preventDefault();
+
+            const id = document.getElementById('prod-id').value || Date.now().toString();
+            const name = document.getElementById('prod-name').value.trim();
+            const category = document.getElementById('prod-category').value;
+            const type = document.getElementById('prod-pricetype').value;
+            const desc = document.getElementById('prod-desc').value.trim();
+            const image = document.getElementById('prod-image-url').value.trim() || 'https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=600&q=80';
+            const available = document.getElementById('prod-available').checked;
+
+            let newItem = { id, name, category, type, desc, image, available };
+
+            if (type === 'sized') {
+                newItem.priceRegular = Number(document.getElementById('prod-price-regular').value) || 0;
+                newItem.priceLarge = Number(document.getElementById('prod-price-large').value) || 0;
+            } else {
+                newItem.price = Number(document.getElementById('prod-price-single').value) || 0;
+            }
+
+            const existingIndex = products.findIndex(p => p.id === id);
+            if (existingIndex > -1) {
+                products[existingIndex] = newItem;
+            } else {
+                products.push(newItem);
+            }
+
+            saveProductsState();
+            closeProductModal();
+            renderAdminProductsTable();
+            renderCategories();
+            renderMenu();
+        }
+
+        function saveProductsState() {
+            localStorage.setItem('fcf_products', JSON.stringify(products));
+        }
+
+        // Render Admin Orders Log
+        function renderAdminOrders() {
+            const container = document.getElementById('admin-orders-list');
+            if (ordersLog.length === 0) {
+                container.innerHTML = `<p class="text-gray-500 text-sm py-6 text-center">No recent local WhatsApp orders recorded.</p>`;
+                return;
+            }
+
+            container.innerHTML = ordersLog.map(ord => `
+                <div class="bg-zinc-900 border border-zinc-800 p-4 rounded-xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4 text-xs">
+                    <div>
+                        <div class="flex items-center gap-2 mb-1">
+                            <span class="font-bold text-amber-400 font-mono text-sm">${ord.id}</span>
+                            <span class="text-gray-400">• ${ord.date}</span>
+                        </div>
+                        <p class="font-bold text-white text-sm">${ord.customer} (${ord.phone})</p>
+                        <p class="text-gray-400">${ord.items.map(i => `${i.qty}x ${i.name}`).join(', ')}</p>
+                    </div>
+
+                    <div class="flex items-center gap-4">
+                        <span class="font-bold text-white text-sm">Rs. ${ord.total}</span>
+                        <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-amber-500/20 text-amber-400 border border-amber-500/30">
+                            WhatsApp Handed Off
+                        </span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function clearOrdersLog() {
+            if (confirm("Clear local order history?")) {
+                ordersLog = [];
+                localStorage.removeItem('fcf_orders');
+                renderAdminOrders();
+            }
+        }
+
+        // Branding Management
+        function populateBrandingForm() {
+            document.getElementById('brand-input-name').value = branding.name;
+            document.getElementById('brand-input-tagline').value = branding.tagline;
+            document.getElementById('brand-input-hero-title').value = branding.heroTitle;
+            document.getElementById('brand-input-hero-desc').value = branding.heroDesc;
+            document.getElementById('brand-input-phone').value = branding.phone;
+            document.getElementById('brand-input-delivery').value = branding.deliveryFee;
+        }
+
+        function saveBrandingSettings(e) {
+            e.preventDefault();
+            branding.name = document.getElementById('brand-input-name').value.trim();
+            branding.tagline = document.getElementById('brand-input-tagline').value.trim();
+            branding.heroTitle = document.getElementById('brand-input-hero-title').value.trim();
+            branding.heroDesc = document.getElementById('brand-input-hero-desc').value.trim();
+            branding.phone = document.getElementById('brand-input-phone').value.trim();
+            branding.deliveryFee = Number(document.getElementById('brand-input-delivery').value) || 0;
+
+            localStorage.setItem('fcf_branding', JSON.stringify(branding));
+            applyBranding();
+            alert("Branding settings saved successfully!");
+        }
+
+        function previewLogoUpload(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(evt) {
+                    branding.logoUrl = evt.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function restoreDefaultBranding() {
+            if (confirm("Restore default Family Choice Food branding settings?")) {
+                branding = { ...defaultBranding };
+                localStorage.setItem('fcf_branding', JSON.stringify(branding));
+                applyBranding();
+                populateBrandingForm();
+            }
+        }
+
+        // Social Media Settings
+        function populateSocialForm() {
+            document.getElementById('social-input-instagram').value = socialLinks.instagram || "";
+            document.getElementById('social-input-facebook').value = socialLinks.facebook || "";
+            document.getElementById('social-input-tiktok').value = socialLinks.tiktok || "";
+            document.getElementById('social-input-youtube').value = socialLinks.youtube || "";
+        }
+
+        function saveSocialSettings(e) {
+            e.preventDefault();
+            socialLinks.instagram = document.getElementById('social-input-instagram').value.trim();
+            socialLinks.facebook = document.getElementById('social-input-facebook').value.trim();
+            socialLinks.tiktok = document.getElementById('social-input-tiktok').value.trim();
+            socialLinks.youtube = document.getElementById('social-input-youtube').value.trim();
+
+            localStorage.setItem('fcf_social', JSON.stringify(socialLinks));
+            renderSocialLinks();
+            alert("Social links updated!");
+        }
+
+        function renderSocialLinks() {
+            const container = document.getElementById('social-media-container');
+            let html = '';
+
+            if (socialLinks.instagram) {
+                html += `<a href="${socialLinks.instagram}" target="_blank" class="p-3 rounded-full bg-zinc-900 border border-zinc-800 text-pink-500 hover:scale-110 transition-transform"><i class="fa-brands fa-instagram text-xl"></i></a>`;
+            }
+            if (socialLinks.facebook) {
+                html += `<a href="${socialLinks.facebook}" target="_blank" class="p-3 rounded-full bg-zinc-900 border border-zinc-800 text-blue-500 hover:scale-110 transition-transform"><i class="fa-brands fa-facebook text-xl"></i></a>`;
+            }
+            if (socialLinks.tiktok) {
+                html += `<a href="${socialLinks.tiktok}" target="_blank" class="p-3 rounded-full bg-zinc-900 border border-zinc-800 text-white hover:scale-110 transition-transform"><i class="fa-brands fa-tiktok text-xl"></i></a>`;
+            }
+            if (socialLinks.youtube) {
+                html += `<a href="${socialLinks.youtube}" target="_blank" class="p-3 rounded-full bg-zinc-900 border border-zinc-800 text-red-500 hover:scale-110 transition-transform"><i class="fa-brands fa-youtube text-xl"></i></a>`;
+            }
+
+            if (!html) {
+                container.innerHTML = `<p class="text-xs text-gray-500">No social media links configured yet.</p>`;
+            } else {
+                container.innerHTML = html;
+            }
+        }
+
+        function changeAdminPassword(e) {
+            e.preventDefault();
+            const n = document.getElementById('new-admin-pass').value;
+            const c = document.getElementById('confirm-admin-pass').value;
+
+            if (n !== c) {
+                alert("Passwords do not match!");
+                return;
+            }
+
+            adminPassword = n;
+            localStorage.setItem('fcf_admin_pass', adminPassword);
+            alert("Admin password changed successfully!");
+            e.target.reset();
+        }
+
+        function toggleMobileNav() {
+            document.getElementById('mobile-nav').classList.toggle('hidden');
+        }
+    </script>
+</body>
+</html>
